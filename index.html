@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- FAILURE: 2.4.2 - No page title -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: white;
+        }
+
+        header {
+            background: #29205c;
+            color: white;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .container {
+            padding: 25px;
+        }
+
+        /* FAILURE: 1.4.3 - Insufficient text contrast */
+        .light-text {
+            color: #b5b5b5;
+            font-size: 14px;
+        }
+
+        /* FAILURE: 1.4.4 - Fixed-size text */
+        .fixed-text {
+            font-size: 12px;
+            line-height: 14px;
+        }
+
+        /* FAILURE: 1.4.11 - Low contrast interface borders */
+        .card {
+            border: 1px solid #eeeeee;
+            padding: 18px;
+            margin-bottom: 20px;
+            background: white;
+        }
+
+        .dashboard {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* FAILURE: 1.3.2 - Visual order differs from DOM order */
+        .first {
+            order: 3;
+        }
+
+        .second {
+            order: 1;
+        }
+
+        .third {
+            order: 2;
+        }
+
+        input {
+            display: block;
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #eeeeee;
+        }
+
+        button {
+            background: #dedede;
+            color: #aaaaaa;
+            border: 1px solid #eeeeee;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        a {
+            color: #777777;
+        }
+
+        .custom-button {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #eeeeee;
+            cursor: pointer;
+            border: 1px solid #eeeeee;
+        }
+
+        /* Fixed dimensions contribute to poor text resizing */
+        .notice {
+            width: 250px;
+            height: 35px;
+            overflow: hidden;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Student Dashboard</h1>
+        <p class="light-text">Welcome to your student portal</p>
+    </header>
+
+    <div class="container">
+
+        <!-- FAILURE: 1.1.1 - Image has no alternative text -->
+        <div class="card">
+            <h2>Profile</h2>
+            <img src="https://placehold.co/150x100" width="150" height="100">
+            <p class="light-text">Student profile information</p>
+        </div>
+
+        <div class="dashboard">
+
+            <!-- DOM first, visually last -->
+            <div class="card first">
+                <h2>Announcements</h2>
+
+                <!-- FAILURE: 2.4.4 - Ambiguous link purpose -->
+                <p>New semester registration is open.</p>
+                <a href="#registration">Click here</a>
+            </div>
+
+            <!-- DOM second, visually first -->
+            <div class="card second">
+                <h2>More</h2>
+
+                <!-- FAILURE: 1.4.3 - Insufficient contrast -->
+                <p class="light-text">
+                    Your attendance percentage is 85%.
+                </p>
+
+                <p class="light-text">
+                    Your assignment deadline is approaching.
+                </p>
+
+                <!-- FAILURE: 1.4.4 - Small fixed-size text -->
+                <p class="fixed-text">
+                    This is important information about your academic progress.
+                </p>
+            </div>
+
+            <!-- DOM third, visually second -->
+            <div class="card third">
+                <h2>Quick Actions</h2>
+
+                <!-- FAILURE: 4.1.2 - Interactive div without role or accessible name -->
+                <div class="custom-button" onclick="showMessage()">
+                    View Results
+                </div>
+
+                <p id="message"></p>
+            </div>
+
+        </div>
+
+        <!-- FAILURE: 1.3.1 and 2.4.6 -->
+        <!-- No semantic form structure and no associated labels -->
+        <div class="card" id="registration">
+            <h2>More</h2>
+
+            <form>
+                <input type="text" placeholder="Enter your name">
+
+                <input type="email" placeholder="Enter your email">
+
+                <input type="text" placeholder="Enter your department">
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <!-- FAILURE: 1.4.11 - Low contrast control -->
+        <div class="card">
+            <h2>Settings</h2>
+
+            <input type="checkbox" style="width:15px;">
+            <span class="light-text">Enable notifications</span>
+        </div>
+
+        <div class="notice">
+            This is a fixed-size notice that may cause problems when text is resized.
+        </div>
+
+    </div>
+
+    <script>
+        function showMessage() {
+            document.getElementById("message").innerText =
+                "Your results are displayed!";
+        }
+    </script>
+
+</body>
+</html>
